@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
@@ -58,6 +59,38 @@ public class UserDAO {
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean usernameExists(String username) {
+        String sql = "SELECT id FROM users WHERE username = ? ";
+        try (Connection conn = DatabaseUtil.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setString(1, username);
+            try (ResultSet rs = statement.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean emailExists(String email) {
+        String sql = "SELECT id FROM users WHERE email = ? ";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setString(1, email);
+            try (ResultSet rs = statement.executeQuery()) {
+                return rs.next();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
