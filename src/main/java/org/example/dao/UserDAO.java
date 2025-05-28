@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserDAO {
 
@@ -96,5 +98,44 @@ public class UserDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public Map<String, Object> getUserByUsernameForLogin(String username) {
+        String sql = "SELECT id, password_hash, first_name FROM users WHERE username = ?";
+        try (Connection conn = DatabaseUtil.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+
+            statement.setString(1, username);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    Map<String, Object> userData = new HashMap<>();
+                    userData.put("id", rs.getInt("id"));
+                    userData.put("password_hash", rs.getString("password_hash"));
+                    userData.put("firstName", rs.getString("first_name"));
+                    userData.put("username", username);
+                    return userData;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean checkPassword(String plainPassword, String hashedPasswordFromDB) {
+        String hashedAttemptedPassword;;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(plainPassword.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            hashedAttemptedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return hashedAttemptedPassword.equals(hashedPasswordFromDB);
     }
 }

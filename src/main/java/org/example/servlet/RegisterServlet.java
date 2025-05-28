@@ -10,7 +10,6 @@ import org.example.bean.User;
 import org.example.dao.UserDAO;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @WebServlet("/registerServlet")
 public class RegisterServlet extends HttpServlet {
