@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import org.example.dao.UserDAO;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 @WebServlet("/loginServlet")

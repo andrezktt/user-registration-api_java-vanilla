@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Cadastro Realizado com Sucesso</title>
-    <style> /* Mesmos estilos do register.jsp ou um CSS centralizado */
+    <style>
         body { font-family: sans-serif; margin: 20px; text-align: center; }
         .container { width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;}
         h2 { color: #4CAF50; }

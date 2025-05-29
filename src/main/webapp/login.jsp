@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-     <style> /* Mesmos estilos do register.jsp ou um CSS centralizado */
+     <style>
         body { font-family: sans-serif; margin: 20px; }
         .container { width: 300px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
         label { display: block; margin-bottom: 5px; }
