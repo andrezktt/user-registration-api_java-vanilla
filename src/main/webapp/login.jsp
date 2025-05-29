@@ -16,12 +16,17 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <%-- Exibir mensagens de erro de login, se houver --%>
         <%
             String loginError = (String) request.getAttribute("loginError");
             if (loginError != null) {
         %>
             <p class="error"><%= loginError %></p>
+        <%
+            }
+            String logoutParam = request.getParameter("logout");
+            if ("true".equals(logoutParam)) {
+        %>
+            <p style="color: green;">Você saiu do sistema com sucesso.</p>
         <%
             }
         %>
